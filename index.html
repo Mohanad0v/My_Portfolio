@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohanad Tarakji | Flutter Developer Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0288D1;
+            --secondary-color: #1E293B;
+            --background-color: #F8FAFC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: #334155;
+            line-height: 1.6;
+        }
+        .text-primary { color: var(--primary-color); }
+        .bg-primary { background-color: var(--primary-color); }
+        .shadow-flutter {
+            box-shadow: 0 10px 20px -5px rgba(2, 136, 209, 0.4);
+        }
+        .project-card {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            border: 1px solid #E2E8F0;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(2, 136, 209, 0.2);
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: none;
+            z-index: 50;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 95%;
+            width: 1000px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #94A3B8;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--primary-color); }
+
+        /* Updated screenshot grid styles for premium look */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot-container {
+    position: relative; /* needed for pseudo-element */
+    border-radius: 12px;
+    overflow: hidden; /* clip the pseudo-element */
+    background-color: #f0f4f8; /* subtle base color */
+    padding: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Add blurred white overlay behind the image */
+.screenshot-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.8); /* white overlay */
+    backdrop-filter: blur(8px); /* blur effect */
+    z-index: 0;
+    border-radius: 12px;
+}
+
+.screenshot-container img {
+    position: relative;
+    z-index: 1; /* above the blurred background */
+    border-radius: 10px;
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    display: block;
+}
+
+    </style>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="antialiased">
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto p-4 sm:p-8">
+        <!-- Header and Contact Info -->
+        <header class="text-center py-10 bg-white rounded-xl shadow-lg mb-10 border-b-4 border-primary/50">
+            <h1 class="text-5xl font-extrabold text-secondary tracking-tight">MOHANAD TARAKJI</h1>
+            <p class="text-xl font-medium text-primary mt-2">Flutter Developer | Information Technology Engineer</p>
+            <div class="flex flex-wrap justify-center gap-6 mt-6 text-gray-600 font-medium">
+                <a href="mailto:tarakjimohanad7@gmail.com" class="flex items-center hover:text-primary transition group">
+                    <i data-lucide="mail" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-primary"></i> tarakjimohanad7@gmail.com
+                </a>
+                <a href="tel:+963967975754" class="flex items-center hover:text-primary transition group">
+                    <i data-lucide="phone" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-primary"></i> +963 967975754
+                </a>
+                <a href="https://linkedin.com/in/mohanad-tarakji-0838385235" target="_blank" class="flex items-center hover:text-primary transition group">
+                    <i data-lucide="linkedin" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-primary"></i> LinkedIn
+                </a>
+                <a href="https://github.com/Mohanad0v" target="_blank" class="flex items-center hover:text-primary transition group">
+                    <i data-lucide="github" class="w-5 h-5 mr-2 text-gray-400 group-hover:text-primary"></i> GitHub
+                </a>
+            </div>
+        </header>
+
+        <!-- Summary -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold border-b-2 border-gray-200 pb-3 mb-4 text-secondary">PROFESSIONAL SUMMARY</h2>
+            <p class="text-gray-700 text-lg">
+                Highly motivated and recently graduated <strong>Flutter Developer</strong> with practical experience in building high-performance, cross-platform mobile applications for <strong>Android</strong> and <strong>iOS</strong>. Proficient in <strong>Dart</strong>, advanced state management (<strong>BLoC, Provider, GetX</strong>), and industry best practices including <strong>Clean Architecture</strong> and <strong>SOLID principles</strong>. Proven ability to integrate complex <strong>REST APIs</strong> and leverage <strong>Firebase</strong> services (Auth, Firestore, Storage). Seeking to apply strong UI/UX, debugging, and collaborative skills in an agile development environment.
+            </p>
+        </section>
+
+        <!-- Core Skills -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold border-b-2 border-gray-200 pb-3 mb-6 text-secondary">CORE TECHNICAL SKILLS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border border-gray-200 p-4 rounded-lg bg-gray-50 flex flex-col">
+                    <h3 class="font-semibold text-xl flex items-center mb-2 text-primary"><i data-lucide="codesandbox" class="w-5 h-5 mr-2"></i> Frameworks & Architecture</h3>
+                    <p class="text-gray-700">Flutter & Dart, State Management (<strong>BLoC</strong>, Provider, GetX), <strong>Clean Architecture</strong>, <strong>SOLID Principles</strong>.</p>
+                </div>
+                <div class="border border-gray-200 p-4 rounded-lg bg-gray-50 flex flex-col">
+                    <h3 class="font-semibold text-xl flex items-center mb-2 text-primary"><i data-lucide="server" class="w-5 h-5 mr-2"></i> Backend & Data</h3>
+                    <p class="text-gray-700">REST APIs (Dio), <strong>Firebase</strong> (Auth, Firestore, Storage), GetIt (DI), dartz (Error Handling).</p>
+                </div>
+                <div class="border border-gray-200 p-4 rounded-lg bg-gray-50 flex flex-col">
+                    <h3 class="font-semibold text-xl flex items-center mb-2 text-primary"><i data-lucide="layout-grid" class="w-5 h-5 mr-2"></i> UI/UX & Quality</h3>
+                    <p class="text-gray-700">Responsive Design, Adaptive Layouts, Code Quality (Equatable), <strong>Easy Localization</strong>.</p>
+                </div>
+                <div class="border border-gray-200 p-4 rounded-lg bg-gray-50 flex flex-col">
+                    <h3 class="font-semibold text-xl flex items-center mb-2 text-primary"><i data-lucide="git-branch" class="w-5 h-5 mr-2"></i> Development Tools</h3>
+                    <p class="text-gray-700">Git, GitHub/GitLab, Debugging, Profiling, Agile Collaboration.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold border-b-2 border-gray-200 pb-3 mb-6 text-secondary">PROFESSIONAL EXPERIENCE</h2>
+            <ol class="relative border-l-4 border-primary ml-3 pl-6">
+                <li class="mb-10">
+                    <span class="absolute flex items-center justify-center w-4 h-4 bg-primary rounded-full -left-2 ring-8 ring-white"></span>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900">Flutter Developer | Automata4</h3>
+                    <time class="block mb-2 text-sm font-medium leading-none text-gray-500">Jul 2025 – Present</time>
+                    <ul class="text-base font-normal text-gray-700 space-y-2 list-disc ml-5 mt-3">
+                        <li>Engage in agile development cycles for high-tech enterprise mobile solutions.</li>
+                        <li>Develop and maintain critical API-driven features, integrating Flutter apps with complex enterprise backend systems.</li>
+                        <li>Apply <strong>Clean Architecture</strong> principles to ensure code quality, scalability, and long-term maintainability.</li>
+                        <li>Actively participate in code reviews and performance optimization efforts.</li>
+                    </ul>
+                </li>
+                <li class="mb-0">
+                    <span class="absolute flex items-center justify-center w-4 h-4 bg-primary rounded-full -left-2 ring-8 ring-white"></span>
+                    <h3 class="text-xl font-bold text-gray-900">Freelance Flutter Developer | Self-employed</h3>
+                    <time class="block mb-2 text-sm font-medium leading-none text-gray-500">2023 – Present</time>
+                    <ul class="text-base font-normal text-gray-700 space-y-2 list-disc ml-5 mt-3">
+                        <li>Delivered multiple end-to-end client and personal mobile applications using Flutter, Dart, and <strong>BLoC</strong>.</li>
+                        <li>Responsible for full-stack mobile development, covering responsive UI implementation, state management, and robust backend integration (<strong>Firebase</strong>, <strong>REST APIs</strong>).</li>
+                        <li>Prioritized clean code practices, internationalization, and scalable application architecture.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Projects with Screenshots - Interactive Section -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold border-b-2 border-gray-200 pb-3 mb-6 text-secondary">KEY PROJECTS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Aurora -->
+                <div class="project-card bg-white rounded-xl p-6 shadow-md hover:shadow-flutter flex flex-col h-full" onclick="showModal('aurora')">
+                    <h3 class="text-2xl font-extrabold text-primary mb-2 flex items-center">
+                        <i data-lucide="home" class="w-6 h-6 mr-2"></i>Aurora – Real Estate App
+                    </h3>
+                    <p class="text-gray-700 flex-grow">A comprehensive real estate platform built on <strong>Clean Architecture</strong> and the <strong>BLoC</strong> pattern to ensure separation of concerns and scalability.</p>
+                </div>
+                <!-- Fruit Hub -->
+                <div class="project-card bg-white rounded-xl p-6 shadow-md hover:shadow-flutter flex flex-col h-full" onclick="showModal('fruitHub')">
+                    <h3 class="text-2xl font-extrabold text-primary mb-2 flex items-center">
+                        <i data-lucide="shopping-cart" class="w-6 h-6 mr-2"></i>Fruit Hub – E-commerce App
+                    </h3>
+                    <p class="text-gray-700 flex-grow">E-commerce application using the <strong>BLoC</strong> pattern and integrating <strong>Firebase</strong> services for sign-in and image processing.</p>
+                </div>
+                <!-- Rick & Morty -->
+                <div class="project-card bg-white rounded-xl p-6 shadow-md hover:shadow-flutter flex flex-col h-full" onclick="showModal('rickMorty')">
+                    <h3 class="text-2xl font-extrabold text-primary mb-2 flex items-center">
+                        <i data-lucide="database" class="w-6 h-6 mr-2"></i>Rick & Morty API Viewer
+                    </h3>
+                    <p class="text-gray-700 flex-grow">A Flutter application that consumes data from the <strong>Rick & Morty API</strong> and displays it smoothly using <strong>BLoC</strong> for state management.</p>
+                </div>
+                <!-- Auth System -->
+                <div class="project-card bg-white rounded-xl p-6 shadow-md hover:shadow-flutter flex flex-col h-full" onclick="showModal('authSystem')">
+                    <h3 class="text-2xl font-extrabold text-primary mb-2 flex items-center">
+                        <i data-lucide="lock" class="w-6 h-6 mr-2"></i>Authentication System Module
+                    </h3>
+                    <p class="text-gray-700 flex-grow">An independent authentication system built using <strong>Firebase Auth</strong> and the <strong>BLoC</strong> principle for clear separation of concerns.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Languages -->
+        <section class="mb-10 p-6 bg-white rounded-xl shadow-lg flex flex-col md:flex-row gap-8">
+            <div class="w-full md:w-1/2">
+                <h2 class="text-3xl font-bold border-b-2 border-gray-200 pb-3 mb-4 text-secondary">EDUCATION</h2>
+                <p class="text-lg font-bold text-gray-800">Aleppo University, Aleppo, Syria</p>
+                <p class="text-gray-600">Bachelor’s Degree in Information Technology Engineering</p>
+                <p class="text-sm text-gray-500">Graduated: September 2025</p>
+            </div>
+
+            <div class="w-full md:w-1/2">
+                <h2 class="text-3xl font-bold border-b-2 border-gray-200 pb-3 mb-4 text-secondary">LANGUAGES</h2>
+                <div class="space-y-2">
+                    <p class="text-lg font-bold text-gray-800">Arabic <span class="text-sm font-normal text-primary ml-2">(Native)</span></p>
+                    <p class="text-lg font-bold text-gray-800">English <span class="text-sm font-normal text-primary ml-2">(C1 - Professional Working Proficiency)</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-sm text-gray-500 pt-4 border-t border-gray-300">
+            &copy; 2025 Mohanad Tarakji. Built with Flutter spirit (and a bit of HTML/Tailwind).
+        </footer>
+    </div>
+
+    <!-- The Modal Structure (Pop-up) -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" class="text-4xl font-extrabold text-secondary mb-3 border-b pb-2"></h2>
+            <p id="modalTech" class="text-lg text-primary font-medium mb-4"></p>
+            <p id="modalDescription" class="text-gray-700 mb-6"></p>
+            <a id="modalGithubLink" href="#" target="_blank" class="inline-flex items-center text-primary font-bold hover:underline transition">
+                <i data-lucide="code" class="w-5 h-5 mr-2"></i> GitHub Repository
+            </a>
+            <h3 class="text-2xl font-semibold text-secondary mb-4 border-t pt-4">Screenshots</h3>
+            <div id="modalScreenshots" class="screenshot-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        const projectsData = {
+            'aurora': {
+                title: 'Aurora – Real Estate Mobile Application',
+                tech: 'Technologies: Flutter, Clean Architecture, BLoC, Dio, GetIt, Easy Localization',
+                description: 'An enterprise-level, integrated real estate platform, meticulously designed using <strong>Clean Architecture</strong> and the <strong>BLoC</strong> pattern to ensure the highest levels of separation of concerns and maintainability.',
+                github: '#',
+                screenshots: [
+                    'images/aurora_splash.png',
+                    'images/aurora_home_page.png',
+                    'images/aurora_home_page-2.png',
+                    'images/aurora_searching_filters.png',
+                    'images/aurora_listinings_Screen.png',
+                    'images/aurora_featured_propreties.png',
+                    'images/aurora_favorites.png',
+                    'images/aurora_login.png',
+                    'images/aurora_sign_up.png'
+                ]
+            },
+            'fruitHub': {
+                title: 'Fruit Hub – E-commerce App',
+                tech: 'Technologies: Flutter, BLoC, Firebase (Auth, Storage), Provider',
+                description: 'A dedicated E-commerce application utilizing the **BLoC** pattern for state management and integrating **Firebase** services for user authentication and image processing.',
+                github: '#',
+                screenshots: [
+                    'images/fruit_hup_splash.jpg',
+                    'images/fruit_hup_onborading.jpg',
+                    'images/fruit_hup_login.jpg',
+                ]
+            },
+            'rickMorty': {
+                title: 'Rick & Morty API Viewer',
+                tech: 'Technologies: Flutter, BLoC, Dio, REST API Integration, Responsive UI',
+                description: 'A modern Flutter application designed to consume data from the public **Rick & Morty API**. It features smooth navigation and state management using the **BLoC** pattern.',
+                github: '#',
+                screenshots: [
+                    'images/rickandmorty_home.jpg',
+                    'images/rick_and_morty_details.jpg'
+                ]
+            },
+            'authSystem': {
+                title: 'Authentication System Module',
+                tech: 'Technologies: Flutter, Firebase Auth, BLoC, Clean Code',
+                description: 'A reusable and independent authentication module built using **Firebase Auth** and the **BLoC** principle for clear separation of concerns and easy integration into larger projects.',
+                github: '#',
+                screenshots: [
+                    'images/signup_and_signin_screen.jpg'
+                ]
+            }
+        };
+
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalTech = document.getElementById('modalTech');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalScreenshots = document.getElementById('modalScreenshots');
+        const modalGithubLink = document.getElementById('modalGithubLink');
+
+        function showModal(projectId) {
+            const project = projectsData[projectId];
+            if (!project) return;
+
+            modalTitle.innerHTML = project.title;
+            modalTech.textContent = project.tech;
+            modalDescription.innerHTML = project.description;
+            modalGithubLink.href = project.github;
+
+            modalScreenshots.innerHTML = '';
+            project.screenshots.forEach(src => {
+                const div = document.createElement('div');
+                div.className = 'screenshot-container';
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = project.title + ' Screenshot';
+                img.onerror = function() {
+                    this.src = 'https://placehold.co/300x500/F8FAFC/334155?text=Image+Unavailable';
+                    this.onerror = null;
+                };
+                div.appendChild(img);
+                modalScreenshots.appendChild(div);
+            });
+
+            modal.style.display = 'block';
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        window.onload = function() {
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
